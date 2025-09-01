@@ -29,7 +29,8 @@ export default function SignInPage() {
     if (error) {
       alert(error.message);
     } else {
-      router.push("/");
+      router.push("/polls");
+      router.refresh();
     }
   };
 

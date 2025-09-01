@@ -39,7 +39,9 @@ export function SiteHeader() {
 
         <nav className="flex items-center gap-1">
           <NavLink href="/polls" label="Polls" />
-          <NavLink href="/polls/new" label="New Poll" />
+          {session && (
+            <NavLink href="/polls/new" label="New Poll" />
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
