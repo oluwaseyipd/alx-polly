@@ -6,12 +6,15 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
 
+  // Refresh session if expired and update response cookies
+  await supabase.auth.getSession();
+
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
   // Protected routes that require authentication
-  const protectedRoutes = ['/polls/new', '/polls/edit'];
+  const protectedRoutes = ['/polls', '/polls/new', '/polls/edit', '/dashboard'];
   const isProtectedRoute = protectedRoutes.some(route => 
     req.nextUrl.pathname.startsWith(route)
   );
@@ -33,8 +36,8 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/polls/new',
-    '/polls/edit/:path*',
+    '/polls/:path*',
     '/auth/:path*',
+    '/dashboard/:path*',
   ],
 };

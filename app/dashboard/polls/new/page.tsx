@@ -16,27 +16,27 @@ export default function NewPollPage() {
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="question">Question</Label>
-              <Input 
-                id="question" 
+              <Input
+                id="question"
                 name="question"
-                placeholder="e.g., What's your favorite framework?" 
+                placeholder="e.g., What's your favorite framework?"
                 required
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="description">Description (Optional)</Label>
-              <Textarea 
-                id="description" 
+              <Textarea
+                id="description"
                 name="description"
-                placeholder="Additional details about your poll..." 
+                placeholder="Additional details about your poll..."
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="options">Options (comma-separated)</Label>
-              <Input 
-                id="options" 
+              <Input
+                id="options"
                 name="options"
-                placeholder="React, Vue, Svelte, Angular" 
+                placeholder="React, Vue, Svelte, Angular"
                 required
                 minLength={3}
               />
@@ -53,6 +53,3 @@ export default function NewPollPage() {
     </div>
   );
 }
-
-
-

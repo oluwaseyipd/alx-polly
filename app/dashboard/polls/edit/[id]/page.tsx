@@ -4,16 +4,19 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { getPollById } from "@/lib/actions/polls";
-import { supabaseServer } from "@/lib/supabase-server";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 type EditPollPageProps = {
   params: Promise<{ id: string }>;
 };
 
 export default async function EditPollPage(props: EditPollPageProps) {
+  const supabase = createServerSupabaseClient();
   const { id } = await props.params;
   const { poll, error } = await getPollById(id);
-  const { data: { user } } = await supabaseServer.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (error || !poll) {
     notFound();
@@ -33,33 +36,21 @@ export default async function EditPollPage(props: EditPollPageProps) {
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="question">Question</Label>
-            <Input 
-              id="question" 
-              defaultValue={poll.question_text}
-              disabled
-            />
+            <Input id="question" defaultValue={poll.question_text} disabled />
             <p className="text-xs text-muted-foreground">
               Question editing coming soon
             </p>
           </div>
           <div className="grid gap-2">
             <Label htmlFor="options">Options</Label>
-            <Input 
-              id="options" 
-              defaultValue={poll.option_text}
-              disabled
-            />
+            <Input id="options" defaultValue={poll.option_text} disabled />
             <p className="text-xs text-muted-foreground">
               Option editing coming soon
             </p>
           </div>
           <div className="flex justify-end gap-2">
-            <Button variant="outline">
-              Cancel
-            </Button>
-            <Button disabled>
-              Save Changes
-            </Button>
+            <Button variant="outline">Cancel</Button>
+            <Button disabled>Save Changes</Button>
           </div>
         </CardContent>
       </Card>
